@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="vue.js"></script>
+    <div id="app">
+        <cpn 
+        :number1="num1" 
+        :number2="num2" 
+        @num1change="num1change" 
+        @num2change="num2change"></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            <!-- <div>{{number1}}</div>
+            <div>{{dNumber1}}</div>
+            <input type="text" :value="dNumber1" @input="num1Input">
+            <div>{{number2}}</div>
+            <div>{{dNumber2}}</div>
+            <input type="text" :value="dNumber2" @input="num2Input"> -->
+            <div>{{number1}}</div>
+            <div>{{dNumber1}}</div>
+            <input type="text" v-model="dNumber1">
+            <div>{{number2}}</div>
+            <div>{{dNumber2}}</div>
+            <input type="text" v-model="dNumber2">
+        </div>
+    </template>
+
+    <script>
+        const cpn = {
+            template:'#cpn',
+            data(){
+                return {
+                    dNumber1:this.number1,
+                    dNumber2:this.number2,
+                }
+            },
+            props:{
+                number1:{
+                    type:Number,
+
+                },
+                number2:{
+                    type:Number,
+                }
+            },
+            methods: {
+                // num1Input(e){
+                //     this.dNumber1 = e.target.value
+                //     this.$emit('num1change',this.dNumber1)
+
+                //     this.dNumber2 = this.dNumber1 * 100
+                //     this.$emit('num2change',this.dNumber2)
+                // },
+                // num2Input(e){
+                //     this.dNumber2 = e.target.value
+                //     this.$emit('num2change',this.dNumber2)
+                //     this.dNumber1 = this.dNumber2 / 100
+                //     this.$emit('num1change',this.dNumber1)
+                // }
+            },
+            watch:{
+                dNumber1(newValue){
+                    this.dNumber2 = newValue * 100
+                    this.$emit('num1change',newValue)
+                },
+                dNumber2(newValue){
+                    this.dNumber1 = newValue / 100
+                    this.$emit('num2change',newValue)
+                }
+            }
+        }
+        new Vue({
+            el:'#app',
+            data:{
+                num1:0,
+                num2:0,
+            },
+            components:{
+                cpn
+            },
+            methods:{
+                num1change(value){
+                    // console.log(value);
+                    this.num1 = parseFloat(value);
+                },
+                num2change(value){
+                    this.num2 = parseFloat(value);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

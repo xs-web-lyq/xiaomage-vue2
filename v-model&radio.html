@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="box">
+        <label for="">
+            <input type="radio" name="sex" value="男" v-model="sex">男
+        </label>
+        <label for="">
+            <input type="radio" name="sex" value="女" v-model="sex">女
+        </label>
+
+        <label for="">
+            <input type="checkbox" v-model="isAgree">同意协议
+        </label>
+
+        <label for="">
+            <input type="checkbox" value="篮球" v-model="hobby">篮球
+            <input type="checkbox" value="足球" v-model="hobby">篮球
+            <input type="checkbox" value="乒乓" v-model="hobby">篮球
+            <input type="checkbox" value="羽毛球" v-model="hobby">篮球
+        </label>
+        <p>{{hobby}}</p>
+    </div>
+    <button :disabled="!isAgree">下一步</button>
+    <script>
+        new Vue({
+            el:'.box',
+            data: {
+                sex:'男',
+                isAgree:false,
+                hobby:[]
+            }
+        })
+
+    </script>
+</body>
+</html>

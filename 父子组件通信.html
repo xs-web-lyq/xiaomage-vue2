@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="" id="app">
+        <cpn :cmessage="message" :cmovies="movies" :clists="lists" @itemclick="cpnClick"></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            {{cmessage}}
+            <ul>
+                <li v-for="(index,item) in cmovies" id="index">{{item}}</li>
+            </ul>
+            <ul>
+                <li v-for="item in clists" @click="btnClick(item)">{{item.name}}</li>
+            </ul>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        
+        const cpn = {
+            template:'#cpn',
+            // props:['cmessage','cmovies'],
+
+            // 对象类型
+            props:{
+                // cmovies:Array,//指定类型
+                cmessage:{
+                    type:String,
+                    default:'a'
+                },
+                cmovies:{
+                    type:Array,//设置类型值
+                    default:[], //设置默认值
+                    required:true //设置必传属性
+                },
+                clists:{
+                    type:Array,
+                    default:[],
+
+                }
+            },
+            data(){
+                return {
+
+                }
+            },
+            methods:{
+                btnClick(item){
+                    this.$emit('itemclick',item)
+                }
+            }
+
+        }
+        new Vue({
+            el:'#app',
+            data:{
+                message:'父元素',
+                movies:['大话西游','西游降魔篇'],
+                lists:[
+                    {
+                        id:1,
+                        name:'郑州'
+                    },
+                    {
+                        id:2,
+                        name:'广州'
+                    },
+                    {
+                        id:3,
+                        name:'上海'
+                    },
+                ]
+            },
+            components:{
+                cpn
+            },
+            methods:{
+                cpnClick(item){
+                    console.log(item.id);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

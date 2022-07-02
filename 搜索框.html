@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <script src="vue-resource.js"></script>
+</head>
+<style>
+    .gray{
+        background-color: gray;
+    }
+</style>
+<body>
+    
+    <div class="box">
+        <input type="text" @keyup="get($event)" v-model="t1" @keydown.down="getDown()" @keydown.up.prevent="getUp()">
+        <ul>
+            <li v-for="value in myData" :class="{gray:$index==now}">{{value}}</li>
+        </ul>
+        <p v-show="myData.length==0">暂无数据...</p>
+    </div>
+    <script>
+        new Vue({
+            el:'body',
+            data:{
+                myData:[],
+                t1:'',
+                now:-1,
+            },
+            methods: {
+                get(e){
+                    if(e.keyCode == 38 || e.keyCode == 40){ return }
+                    if(e.keyCode == 13){
+                        window.open('https://www.baidu.com/s?wd=' + this.t1)
+                    }
+                    this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+                        wd:this.t1
+                    },{
+                        jsonp:'cb'
+                    }).then(function(res){
+                        this.myData = res.data.s;
+                    },function(){})
+                },
+                getDown(){
+                    this.now++;
+                    if(this.now == this.myData.length){
+                        this.now=-1;
+                    }
+                    this.t1 = this.myData[this.now];
+                },
+                getUp(){
+                    this.now--;
+                    if(this.now == -2){
+                        this.now = this.myData.length - 1
+                    }
+                    this.t1 = this.myData[this.now];
+                }
+            },
+        })
+    </script>
+</body>
+<!-- https://www.baidu.com/s?wd=a -->
+<!-- tworeq?wd=&callback=_jsonpzecatsqfnpr -->
+<!-- https://www.baidu.com/sugrec?wd=a&cb=show -->
+<!-- suggest?callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&src=so_home&fields=word&word… -->
+</html>

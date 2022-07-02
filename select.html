@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div class="box">
+        <select name="" id="" v-model="mySelect" multiple>
+            <option value="苹果">苹果</option>
+            <option value="香蕉">香蕉</option>
+            <option value="榴莲">榴莲</option>
+            <option value="猕猴桃">猕猴桃</option>
+        </select>
+        <p>{{mySelect}}</p>
+    </div>
+    <script>
+        new Vue({
+            el:'.box',
+            data:{
+                mySelect:[]
+            }
+        })
+    </script>
+</body>
+</html>
