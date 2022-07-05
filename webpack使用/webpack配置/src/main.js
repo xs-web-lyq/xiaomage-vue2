@@ -10,7 +10,8 @@ import App from './vue/App.vue'
 new Vue({
     el:'#app',
     components: {
-        App,
+        App, 
     },
     template: '<App/>'
 })
+document.write("111111111111");

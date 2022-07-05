@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+// const uglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
     entry:'./src/main.js',
@@ -7,7 +9,7 @@ module.exports = {
 
         path:path.resolve(__dirname,'dist'),
         filename:'bundle.js',
-        publicPath:'dist/'
+        // publicPath:'dist/'
     },
     module: {
         rules: [
@@ -66,8 +68,16 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.BannerPlugin('最终版权归刘永奇所有')
-    ]
+        new webpack.BannerPlugin('最终版权归刘永奇所有'),
+        new htmlWebpackPlugin({
+          template:'index.html'
+        }),
+        // new uglifyjsWebpackPlugin()
+    ],
+    devServer: {
+      contentBase: './dist',
+      inline: true
+    }
         
     
 }
