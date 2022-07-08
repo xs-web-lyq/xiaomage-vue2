@@ -6,6 +6,9 @@
     <button @click="add(5)">+</button>
     {{$store.state.number}}
     <button @click="minus(2)">-</button>
+
+    <div>{{$store.state.info}}</div>
+    <button @click="changeInfo">添加</button>
   </div>
  
 </template>
@@ -24,6 +27,14 @@ export default {
             this.$store.commit({
                 type:'decrement',//{type: 'minus1', m: 2}
                 m,
+            })
+        },
+        changeInfo(){
+            this.$store.dispatch('aChangeInfo',{
+                massage:'ni',
+                fun(){
+                    console.log('aaaa')
+                }
             })
         }
     }
